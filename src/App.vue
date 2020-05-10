@@ -1,28 +1,38 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <!-- 告诉我的列表每一项多高，因为我要算出一个滚动条来 -->
+    <VirtualList :size="40" :remain="8" :items="items">
+      <Item slot-scope="{item}" :item="item"></Item>
+    </VirtualList>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue';
+import VirtualList from './components/virtual-list.vue';
+import Item from './components/item.vue';
+let items = [];
+for(let i=0; i<100; i++) {
+  items.push({id: i, value: i});
+}
 
 export default {
   name: 'App',
+  data() {
+    return {
+      items
+    }
+  },
   components: {
-    HelloWorld,
+    VirtualList,
+    Item
   },
 };
 </script>
 
 <style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 </style>
